@@ -1,0 +1,257 @@
+import React, { useState, useEffect } from "react";
+
+const MostBooked = () => {
+  const [services, setServices] = useState([]);
+
+  const servicesToDisplay = [
+    "AC repair (split/window)",
+    "TV repair",
+    "Refrigerator Double door repair",
+    "Microwave repair",
+  ];
+
+  useEffect(() => {
+    // Fetch data from the API
+    fetch("https://wm-backend--connecturbanspa.repl.co/api/services")
+      .then((response) => response.json())
+      .then((data) => {
+        const filteredData = data.api_data.flatMap((subArray) =>
+          subArray.services.filter((item) =>
+            servicesToDisplay.includes(item.service_title)
+          )
+        );
+        setServices(filteredData);
+        console.log("Filtered Data", filteredData);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
+  return (
+    <div>
+      <div className="flex flex-col bg-white m-auto p-auto">
+        <h1 className="flex py-5 lg:px-5 md:px-5 px-5 lg:mx-40 md:mx-20 mx-5 font-bold text-2xl text-gray-800">
+          Most booked services
+        </h1>
+        <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
+          <div className="flex flex-nowrap lg:ml-40 md:ml-20 ml-10">
+            {services.map((service, index) => (
+              <div className="inline-block px-3" key={index}>
+                <div className="w-24 h-24 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
+                  <img
+                    src={service.service_img}
+                    alt={service.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <p className="text-center mt-2">{service.service_title}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default MostBooked;
+
+
+
+// import React, { useState, useEffect } from "react";
+
+// const MostBooked = () => {
+//   const [services, setServices] = useState([]);
+
+//   const servicesToDisplay = [
+//     "AC repair (split/window)",
+//     "TV repair",
+//     "Refrigerator Double door repair",
+//     "Microwave repair",
+//   ];
+
+//   useEffect(() => {
+//     // Fetch data from the API
+//     fetch("https://wm-backend--connecturbanspa.repl.co/api/services")
+//       .then((response) => response.json())
+//       .then((data) => {
+//         // if (Array.isArray(data)) {
+//         //   setServices(data);
+//         // }
+
+//         const filteredData = data.api_data.flatMap((subArray) =>
+//           subArray.services.filter((item) =>
+//             servicesToDisplay.includes(item.service_title)
+//           )
+//         );
+//         setServices(filteredData);
+//         console.log("Filtered Data", filteredData);
+//       })
+//       .catch((error) => console.error("Error fetching data:", error));
+//   }, []);
+
+//   return (
+//     <div>
+//       <div className="flex flex-col bg-white m-auto p-auto">
+//         <h1 className="flex py-5 lg:px-5 md:px-5 px-5 lg:mx-40 md:mx-20 mx-5 font-bold text-2xl text-gray-800">
+//           Most booked services
+//         </h1>
+//         <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
+//           <div className="flex flex-nowrap lg:ml-40 md:ml-20 ml-10">
+//             {services.map((service, index) => (
+//               <div className="inline-block px-3" key={index}>
+//                 <div className="w-24 h-24 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
+//                   <img src={service.service_img} alt={service.title} />
+//                   <p>{service.service_title}</p>
+//                 </div>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default MostBooked;
+
+// import React, { useState, useEffect } from "react";
+
+//  const MostBooked = () => {
+//    const [services, setServices] = useState([]);
+
+//    useEffect(() => {
+//      // Fetch data from the API
+//      fetch(`https://wm-backend--connecturbanspa.repl.co/api/services`)
+//        .then((response) => response.json())
+//        .then((data) => {
+//          // if (Array.isArray(data)) {
+//          //   setServices(data);
+//          // }
+//          setServices(data.api_data);
+//        })
+//        .catch((error) => console.error("Error fetching data:", error));
+//    }, []);
+
+//    return (
+//      <div>
+//        <div className="flex flex-col bg-white m-auto p-auto">
+//          <h1 className="flex py-5 lg:px-5 md:px-5 px-5 lg:mx-40 md:mx-20 mx-5 font-bold text-2xl text-gray-800">
+//            Most booked services
+//          </h1>
+//          <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
+//           <div className="flex flex-nowrap lg:ml-40 md:ml-20 ml-10">
+//             {services.map((service, index) => (
+//               <div className="inline-block px-3" key={index}>
+//                 <div className="w-24 h-24 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
+//                   <img src={service.img} alt={service.title} />
+//                   <p>{service.title}</p>
+//                 </div>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+//  export default MostBooked;
+
+ // import React from 'react';
+
+ // const MostBooked = () => {
+//     return (
+//         <div>
+//             <div className="flex flex-col bg-white m-auto p-auto">
+//       <h1 className="flex py-5 lg:px-20 md:px-10 px-5 lg:mx-40 md:mx-20 mx-5 font-bold text-2xl text-gray-800">
+//         Most booked services
+//       </h1>
+//       <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
+//         <div className="flex flex-nowrap lg:ml-40 md:ml-20 ml-10">
+//           <div className="inline-block px-3">
+//             <div className="w-24 h-24 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div>
+//           </div>
+//           <div className="inline-block px-3">
+//             <div className="w-24 h-24 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div>
+//           </div>
+//           <div className="inline-block px-3">
+//             <div className="w-24 h-24 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div>
+//           </div>
+ //           <div className="inline-block px-3">
+ //             <div className="w-24 h-24 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div>
+ //           </div>
+
+ //         </div>
+ //       </div>
+ //     </div>
+//         </div>
+//     );
+// }
+
+ // export default MostBooked;
+
+ {
+   /* <div className="inline-block px-3">
+             <div className="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div>
+           </div>
+           <div className="inline-block px-3">
+            <div className="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div>
+          </div>
+          <div className="inline-block px-3">
+            <div className="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div>
+           </div>
+           <div className="inline-block px-3">
+             <div className="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div>
+           </div> */
+ }
+
+
+
+// import React from 'react';
+
+// const MostBooked = () => {
+//     return (
+//         <div>
+//             <div className="flex flex-col bg-white m-auto p-auto">
+//       <h1 className="flex py-5 lg:px-20 md:px-10 px-5 lg:mx-40 md:mx-20 mx-5 font-bold text-2xl text-gray-800">
+//         Most booked services
+//       </h1>
+//       <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
+//         <div className="flex flex-nowrap lg:ml-40 md:ml-20 ml-10">
+//           <div className="inline-block px-3">
+//             <div className="w-24 h-24 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div>
+//           </div>
+//           <div className="inline-block px-3">
+//             <div className="w-24 h-24 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div>
+//           </div>
+//           <div className="inline-block px-3">
+//             <div className="w-24 h-24 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div>
+//           </div>
+//           <div className="inline-block px-3">
+//             <div className="w-24 h-24 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div>
+//           </div>
+          
+//         </div>
+//       </div>
+//     </div>
+//         </div>
+//     );
+// }
+
+// export default MostBooked;
+
+
+
+
+{/* <div className="inline-block px-3">
+            <div className="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div>
+          </div>
+          <div className="inline-block px-3">
+            <div className="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div>
+          </div>
+          <div className="inline-block px-3">
+            <div className="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div>
+          </div>
+          <div className="inline-block px-3">
+            <div className="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"></div>
+          </div> */}
